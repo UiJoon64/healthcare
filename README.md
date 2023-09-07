@@ -1,3 +1,15 @@
+# 시니어 이상행동 감지 서비스
+
+### 정상 실행부터 시작
+
+webcam_with_another.py 파일과 Yolov7-Flask 폴더 속 app.py 파일 정상 실행부터 하는게 목적
+
+webcam_with_another.py는 웹캠 카메라 분석 페이지가 구현되어있지만 sql연결, 로그인 페이지 구현 X
+
+app.py파일은 결과 페이지가 구현 X
+
+따로 개발 후 나중에 합치는 것으로 예정
+
 # yolov7-object-cropping
 
 ### Steps to run Code
