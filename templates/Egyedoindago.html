@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 음성 인식</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@tensorflow-models/speech-commands"></script>
+</head>
+<body>
+    <h1>실시간 음성 인식</h1>
+    <div id="output">
+        <span> 감지된 텍스트: </span>
+        <span id="detected_text">----</span>
+    </div>
+    <script>
+        const DETECTED_TEXT = document.getElementById('detected_text');
+
+        async function recognizeAudio() {
+            const recognizer = speechCommands.create('BROWSER_FFT');
+            await recognizer.ensureModelLoaded();
+
+            const words = recognizer.wordLabels();
+            recognizer.listen(result => {
+                const maxConfidence = Math.max.apply(null, result.scores);
+                const detected_word = words[result.scores.indexOf(maxConfidence)];
+                DETECTED_TEXT.innerText = detected_word;
+            }, {
+                includeSpectrogram: false,
+                probabilityThreshold: 0.75,
+            });
+        }
+
+        recognizeAudio();
+    </script>
+</body>
+</html>

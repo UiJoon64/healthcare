@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Streaming</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1, h2, h3 {
+            margin-bottom: 0.5em;
+        }
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2em;
+        }
+        .main {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+        .video-container, .graph-container {
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 320px;
+            min-height: 400px;
+        }
+        .classification-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 1em;
+            padding: 1em 0;
+            background-color: #efefef;
+            border-radius: 6px;
+        }
+        .stt-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 1em;
+            background-color: #f0f0f0;
+            padding: 1em 0;
+            border-radius: 6px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+      
+      button.stt-btn {
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #f44336;
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: background-color 0.25s;
+        }
+      
+      button.stt-btn:hover {
+        background-color: #e53935;
+      }
+      
+      .disabled {
+         background-color: #aaaaaa;
+         cursor: not-allowed;
+         border: none;
+        }
+      .alert-button {
+            background-color: red;
+            height: 50px;
+            margin-top: 8px;
+            padding: 0;
+            line-height: 50px;
+            width: 150px;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+        }
+        textarea {
+            width: 70%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            min-height: 50px;
+            border-radius: 6px;
+            border: 2px solid #ccc;
+            padding: 1em;
+            resize: none;
+            font-size: 1rem;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      textarea::placeholder {
+         color: #999;
+      }
+        button {
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            background-color: #f44336;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.25s;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            background-color: #e53935;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+    </style>
+   <style>
+        @keyframes flash {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(255, 0, 0, 0.3); }
+            100% { background-color: transparent; }
+        }
+        .alert-active {
+            animation: flash 1s linear infinite;
+        }
+    </style>
+    <script>
+        let recognition;
+        let resultElem;
+        let startButton;
+        let stopButton;
+        function startRecording() {
+            resultElem = document.getElementById('transcript');
+            startButton = document.getElementById('startButton');
+            stopButton = document.getElementById('stopButton');
+
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("이 브라우저에서는 Web Speech API를 지원하지 않습니다. Chrome을 이용해 주세요.");
+                return;
+            }
+            
+            startButton.disabled = true;
+            startButton.classList.add('disabled');
+            stopButton.disabled = false;
+            stopButton.classList.remove('disabled');
+            
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'ko-KR';
+            
+            recognition.onresult = function(event) {
+                let interimTranscript = '';
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                resultElem.value = finalTranscript + interimTranscript;
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event);
+            };
+            
+            recognition.start();
+            startButton.style.display="none";
+            stopButton.style.display="inline";
+        }
+
+        function stopRecording() {
+            recognition.stop();
+            recognition = null;
+
+            startButton.disabled = false;
+            startButton.classList.remove('disabled');
+            stopButton.disabled = true;
+            stopButton.classList.add('disabled');
+         
+            startButton.style.display = "inline";
+            stopButton.style.display = "none";
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>실시간 사고 감지</h1>
+        <div class="main">
+            <div class="video-container">
+                <img src="{{ url_for('video_feed') }}">
+            </div>
+
+            <div class="graph-container">
+                <h2>실시간 관절 각도</h2>
+                <canvas id="jointAnglesChart"></canvas>
+            </div>
+        </div>
+        <div class="classification-container">
+            <h2>행동 분류 결과</h2>
+            <div id="classification-result"></div>
+        </div>
+        <div class="stt-container">
+            <button id="startButton" class="stt-btn" onclick="startRecording()">녹음 시작</button>
+         <button id="stopButton" class="stt-btn" onclick="stopRecording()" style="display:none;">녹음 중지</button>
+            <textarea id="transcript" rows="2" cols="50" placeholder="음성인식 결과가 표시됩니다."></textarea>
+            <button class="alert-button">보호자에게 알림</button>
+        </div>
+        <button id="confirmation-button" onclick="hideAlert()" style="display: none;">알림 끄기</button>
+    </div>
+    <script>
+        function showAlert() {
+            document.querySelector('body').classList.add('alert-active');
+            document.querySelector('#confirmation-button').style.display = 'block';
+        }
+
+        function hideAlert() {
+            document.querySelector('body').classList.remove('alert-active');
+            document.querySelector('#confirmation-button').style.display = 'none';
+        }
+
+        // 실시간 그래프 생성
+        var ctx = document.getElementById('jointAnglesChart').getContext('2d');
+        var jointAnglesChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+            labels: [],
+            datasets: [{                label: 'Elbow',                data: [],
+               backgroundColor: 'rgba(255, 99, 132, 0.2)',
+               borderColor: 'rgba(255, 99, 132, 1)',
+               borderWidth: 1
+            },
+            {
+               label: 'Shoulder',
+               data: [],
+               backgroundColor: 'rgba(54, 162, 235, 0.2)',
+               borderColor: 'rgba(54, 162, 235, 1)',
+               borderWidth: 1
+            },
+            {
+               label: 'Hip',
+               data: [],
+               backgroundColor: 'rgba(255, 206, 86, 0.2)',
+               borderColor: 'rgba(255, 206, 86, 1)',
+               borderWidth: 1
+            },
+            {
+               label: 'Knee',
+               data: [],
+               backgroundColor: 'rgba(75, 192, 192, 0.2)',
+               borderColor: 'rgba(75, 192, 192, 1)',
+               borderWidth: 1
+            }]
+         },
+         options: {
+            scales: {
+               y: {
+                  beginAtZero: true
+               }
+            }
+         }
+      });
+
+        function updateGraph() {
+         // 시간 값을 x축 라벨로 사용
+         var now = new Date().toLocaleTimeString();
+         jointAnglesChart.data.labels.push(now);
+
+         // 관절 각도 데이터를 업데이트
+         fetch("/joint_angles")
+            .then(response => response.json())
+            .then(data => {
+               jointAnglesChart.data.datasets[0].data.push(data.elbow);
+               jointAnglesChart.data.datasets[1].data.push(data.shoulder);
+               jointAnglesChart.data.datasets[2].data.push(data.hip);
+               jointAnglesChart.data.datasets[3].data.push(data.knee);
+            });
+         
+         // 그래프 업데이트
+         jointAnglesChart.update();
+         
+         // 데이터 샘플 수를 제한
+         if (jointAnglesChart.data.labels.length > 50) {
+            jointAnglesChart.data.labels.shift();
+            jointAnglesChart.data.datasets.forEach(dataset => dataset.data.shift());
+         }
+      }
+
+        setInterval(updateGraph, 500);
+        
+        // 실시간 분류 결과 업데이트
+        function updateClassificationResult() {
+            fetch('/action_result')
+                .then((response) => response.json())
+                .then((data) => {
+                    document.getElementById(
+                        'classification-result'
+                    ).innerHTML = `Action: ${data.result}`;
+                    
+                    if (data.result === "낙상") {
+                        showAlert();
+                    } else {
+                        hideAlert();
+                    }
+                });
+        }
+        
+        setInterval(updateClassificationResult, 500);
+   
+    </script>
+</body>
+</html>

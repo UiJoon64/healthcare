@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV 파일 실시간 차트</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0"></script>
+</head>
+<body>
+  <input type="file" id="csv-input" accept=".csv">
+  <canvas id="real-time-chart"></canvas>
+
+  <script>
+    var ctx = document.getElementById('real-time-chart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: 'elbow',
+            data: [],
+            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'shoulder',
+            data: [],
+            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            borderColor: 'rgba(255, 0, 0, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'hip',
+            data: [],
+            backgroundColor: 'rgba(0, 255, 0, 0.5)',
+            borderColor: 'rgba(0, 255, 0, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'knee',
+            data: [],
+            backgroundColor: 'rgba(0, 0, 255, 0.5)',
+            borderColor: 'rgba(0, 0, 255, 1)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        animation: {
+          duration: 0
+        },
+        scales: {
+          x: {
+            display: true
+          },
+          y: {
+            display: true
+          }
+        }
+      }
+    });
+
+    // CSV 파일을 파싱하여 데이터 추출
+    function parseCSV(csv) {
+      var lines = csv.split('\n');
+      var data = [];
+
+      for (var i = 1; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (line !== '') {
+          var values = line.split(',');
+          var rowData = values.map(function (value) {
+            return parseFloat(value);
+          });
+          data.push(rowData);
+        }
+      }
+
+      return data;
+    }
+
+    // CSV 파일을 선택하면 호출되는 함수
+    function handleFile() {
+      var fileInput = document.getElementById('csv-input');
+      var file = fileInput.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var csv = e.target.result;
+          var data = parseCSV(csv);
+
+          // 실시간 업데이트 함수 호출
+          updateData(data);
+        };
+
+        reader.readAsText(file);
+      }
+    }
+
+    // 데이터를 실시간으로 업데이트하는 함수
+    function updateData(data) {
+      // 현재 데이터의 인덱스
+      var dataIndex = 0;
+
+      // 실시간 업데이트 함수 호출
+      setInterval(function () {
+        if (dataIndex < data.length) {
+          var newData = data[dataIndex];
+
+          // x축 값 추가
+          chart.data.labels.push(newData[0]);
+
+          // y축 값 추가
+          for (var i = 1; i < newData.length; i++) {
+            chart.data.datasets[i - 1].data.push(newData[i]);
+          }
+
+          // 데이터 길이를 제한하여 차트를 스크롤링하도록 설정
+          var dataLength = 10;
+          if (chart.data.labels.length > dataLength) {
+            chart.data.labels.shift();
+            for (var j = 0; j < chart.data.datasets.length; j++) {
+              chart.data.datasets[j].data.shift();
+            }
+          }
+
+          // 그래프 업데이트
+          chart.update();
+
+          // 다음 데이터로 이동
+          dataIndex++;
+        }
+      }, 1000);
+    }
+
+    // 파일 선택(input) 이벤트 리스너 등록
+    document.getElementById('csv-input').addEventListener('change', handleFile);
+  </script>
+</body>
+</html>
