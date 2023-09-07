@@ -15,6 +15,17 @@ app.py파일은 결과 페이지가 구현 X
 
 확인 필요
 
+### requirements
+
+CUDA 11.3(그래픽 카드 드라이버 버전에 따라 상이) 설치 후 쿠다 버전에 맞는 파이토치 설치 \
+https://pytorch.org/get-started/previous-versions/ 에서 확인
+```
+# CUDA 11.3
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+```
+
+이후 tensorflow까지 설치
+
 # yolov7-object-cropping
 
 ### Steps to run Code
