@@ -26,6 +26,15 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --e
 
 이후 tensorflow까지 설치
 
+### 설치 과정에서 Error
+```
+ImportError: cannot import name 'builder' from 'google.protobuf.internal'
+```
+
+https://velog.io/@alvinlee9/ImportError-cannot-import-name-builder-from-google.protobuf.internal 참고
+
+
+
 # yolov7-object-cropping
 
 ### Steps to run Code
