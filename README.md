@@ -13,7 +13,11 @@ app.py파일은 결과 페이지가 구현 X
 
 파일 실행 시 필요한 경로, 빈 폴더가 부족할 수 있음
 
-확인 필요
+실행시 traced_model.pt, yolov7.pt가 필요 \
+
+traced_model.pt 는 https://drive.google.com/file/d/1ljJmZE7x5rwQxMcJRIexZ3-nn65CnGAd/view?usp=drive_link 에서 \
+
+yolov7.pt 는 https://drive.google.com/file/d/1j2YFwIopl1iNED5i2Td4x06VgWXKzsdc/view?usp=drive_link 에서 \
 
 ### requirements
 
