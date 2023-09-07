@@ -10,6 +10,11 @@ app.py파일은 결과 페이지가 구현 X
 
 따로 개발 후 나중에 합치는 것으로 예정
 
+
+파일 실행 시 필요한 경로, 빈 폴더가 부족할 수 있음
+
+확인 필요
+
 # yolov7-object-cropping
 
 ### Steps to run Code
