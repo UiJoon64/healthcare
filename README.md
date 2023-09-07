@@ -31,7 +31,15 @@ pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --e
 ImportError: cannot import name 'builder' from 'google.protobuf.internal'
 ```
 
-https://velog.io/@alvinlee9/ImportError-cannot-import-name-builder-from-google.protobuf.internal 참고
+프롬프트에서
+```
+pip install --upgrade protobuf
+```
+protobuf를 최신버전으로 업그레이드 후, site-packages/google/protobuf/internal 경로에 있는 builder.py를 바탕화면에 복사해둔다
+```
+pip install protobuf==3.19.4
+```
+로 버전을 낮춘 후 방금의 경로에 붙여넣기를 하면 해결
 
 
 
