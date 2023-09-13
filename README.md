@@ -13,15 +13,15 @@ app.py파일은 결과 페이지가 구현 X
 
 파일 실행 시 필요한 경로, 빈 폴더가 부족할 수 있음
 
-실행시 traced_model.pt, yolov7.pt가 필요 \
+실행시 traced_model.pt, yolov7.pt가 필요 
 
-traced_model.pt 는 https://drive.google.com/file/d/1ljJmZE7x5rwQxMcJRIexZ3-nn65CnGAd/view?usp=drive_link 에서 \
+traced_model.pt 는 https://drive.google.com/file/d/1ljJmZE7x5rwQxMcJRIexZ3-nn65CnGAd/view?usp=drive_link 에서 
 
-yolov7.pt 는 https://drive.google.com/file/d/1j2YFwIopl1iNED5i2Td4x06VgWXKzsdc/view?usp=drive_link 에서 \
+yolov7.pt 는 https://drive.google.com/file/d/1j2YFwIopl1iNED5i2Td4x06VgWXKzsdc/view?usp=drive_link 에서 
 
 ### requirements
 
-CUDA 11.3(그래픽 카드 드라이버 버전에 따라 상이) 설치 후 쿠다 버전에 맞는 파이토치 설치 \
+CUDA 11.3(그래픽 카드 드라이버 버전에 따라 상이) 설치 후 쿠다 버전에 맞는 파이토치 설치 
 https://pytorch.org/get-started/previous-versions/ 에서 확인
 ```
 # CUDA 11.3
