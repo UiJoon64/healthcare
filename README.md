@@ -81,6 +81,8 @@ python detect_and_crop.py --weights yolov7.pt --source "your video.mp4" -classes
 ```
 - Cropped Objects will be stored in "working-dir/crop" folder.
 
+### Database
+
 ### Results
 
 
