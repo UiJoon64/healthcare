@@ -1,4 +1,4 @@
-📽 SENIOR_MOTION_DETECTION
+👵 SENIOR_MOTION_DETECTION 👴
 ========================
 노령층 이상행동 감지 및 보호자 알림 서비스
 
