@@ -78,7 +78,7 @@ for b in os4 :
                 list_images = os.listdir(file_path1)
                 #print(list_images)
                 
-                반복문
+                #반복문
                 for image in list_images[1:] :
                     # 이미지 가져와서 크기 조절
                     img = Image.open(file_path1+image)
