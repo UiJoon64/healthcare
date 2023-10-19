@@ -56,7 +56,7 @@ AI-Hub에서 총 80가지의 일상생활 라벨링 데이터를 담은
 
 이미지들은 YOLOv7-tiny의 학습을 위해 이미지 크기를 1920x1080 사이즈에서 640x360의 사이즈로 조절하였다.
 
-#### val, train resize
+# val, train resize
 import os
 import glob
 from PIL import Image
@@ -78,7 +78,7 @@ for b in os4 :
                 list_images = os.listdir(file_path1)
                 #print(list_images)
                 
-                # 반복문
+                *반복문
                 for image in list_images[1:] :
                     # 이미지 가져와서 크기 조절
                     img = Image.open(file_path1+image)
