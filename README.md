@@ -56,6 +56,38 @@ AI-Hub에서 총 80가지의 일상생활 라벨링 데이터를 담은
 
 이미지들은 YOLOv7-tiny의 학습을 위해 이미지 크기를 1920x1080 사이즈에서 640x360의 사이즈로 조절하였다.
 
+#### val, train resize
+import os
+import glob
+from PIL import Image
+output_path =("C:/Users/Administrator/Desktop/일상생활 영상/train_resize/")
+
+os4 = os.listdir("C:/Users/Administrator/Desktop/일상생활 영상/val")
+for b in os4 :
+    file_path4 = "C:/Users/Administrator/Desktop/일상생활 영상/val/{}/".format(b)
+    os3 = os.listdir(file_path4)
+    for a in os3 :
+        file_path3 = file_path4 + "/{}/".format(a)
+        os2 = os.listdir(file_path3)
+        for j in os2 :
+            file_path2 = file_path3 + "/{}/".format(j)
+            os_list = os.listdir(file_path2)
+            for i in os_list:
+                # 타겟 폴더 정보
+                file_path1 = file_path2 + "/{}/".format(i)
+                list_images = os.listdir(file_path1)
+                #print(list_images)
+                
+                # 반복문
+                for image in list_images[1:] :
+                    # 이미지 가져와서 크기 조절
+                    img = Image.open(file_path1+image)
+                    print(image)
+                    
+                    (width, height) = (img.width//3, img.height//3)
+                    resize_show = img.resize((width, height))
+                    resize_show.save("C:/Users/Administrator/Desktop/일상생활 영상/val_resize/" +image)
+
 이미지마다 각 행동의 바운딩박스 좌표가 들어있었고, 바운딩박스의 좌표 또한 이미지 크기 비율에 맞춰 정규화시켜주었다.
 
 * YOLOv7-tiny를 선정한 이유는 YOLOv7-tiny가 객체 탐지의 가장 기본적이고 속도가 매우 빠른 알고리즘으로,
