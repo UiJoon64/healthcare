@@ -22,15 +22,16 @@ PYTHON 3.9.16
 
 CUDA 11.3
 
-이미지데이터 : YOLOv7-tiny
+<사용 모델, api 등>
+~~이미지데이터 : YOLOv7-tiny~~
 
-영상데이터 : YOLOv7, media pipe
+영상데이터 : ~~YOLOv7~~, ~~media pipe~~, yolov7-w6-pose
 
-음성데이터 : webkitSpeechRecognition, BERT
+음성데이터 : webkitSpeechRecognition, ~~BERT~~
 
-웹 : 
+로그인 DB : Firebase
 
-(데이터 출처 : AI-Hub)
+(데이터 출처 : ~~AI-Hub~~)
 
 
 🌳 프로젝트 개요
