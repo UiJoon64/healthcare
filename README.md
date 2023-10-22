@@ -157,6 +157,8 @@ media pipe를 이용해서 실시간 영상에서 자동으로 관절각도량�
 촬영한 영상은 yolov7-w6-pose.pt 모델을 활용하여 골격의 위치를 추정, 추정한 2차원 좌표를 바탕으로 각도를 계산하였다.
 (https://github.com/WongKinYiu/yolov7)
 
+(가끔씩 유리창에 비친 모습도 골격을 추정해내는데, 한 프레임에 대한 모델의 출력값이 2배가 된다. 가장 신뢰도가 높은 값 골격을 추출해내면 여러 피사체가 있어도 목표 피사체에 대한 값만 가져올 수 있었다.)
+
 pose-estimate.py는 디렉토리에 포함된 전체 영상에 대해 해당 과정을 수행하고 프레임 단위로 각 관절각도를 기록하여 csv파일로 생성한다.
 
 골격 추정의 정확도를 확인하기 위해 골격이 그려진 영상을 같은 디렉토리에 저장되도록 하였지만 추출 과정에 상당한 시간이 추가 되기에 변환해야할 영상이 추가되어야 한다면 이 과정은 생략되더야 한다. (약 120개 영상 변환에 5시간 정도 소요)
@@ -193,7 +195,10 @@ pose-estimate.py는 디렉토리에 포함된 전체 영상에 대해 해당 과
 
 위 과정은 모두 preprocessing_sequential_datas.ipynb에서 처리하였다.
 
+yolov7+mediapipe 에서 yolov7 pose estimation 모델로 변환해서 관절각도변화 추이로 정확도를 비교해보니 상당 부분 개선이 이루어진 것을 확인할 수 있었다.
 
+![download (4)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/4b04b0ab-e369-4e3b-b33b-1d9c628c17f1)
+![joint_angle_changes](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/cd8f19be-74c9-4818-8b43-c6f2a3a160b6)
 
 ✨ 음성데이터
 =====================
