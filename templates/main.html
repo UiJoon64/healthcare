@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAIN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('static/assets/img1.png');
+            background-repeat: no-repeat;
+            background-color: #eee1cd;
+            background-size: contain;
+            background-origin: content-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" id="authForm">
+        <div style="text-align: center;">
+            <h1>Senior Care</h1>
+
+            <p style="text-align: center; font-family: 'Open Sans', sans-serif; margin-bottom: 1400pt;">
+                <h4 style="font-family: 'Open Sans', sans-serif;">시니어 이상행동 감지 및 사고예방 서비스</h4>
+            </p>
+
+            <p>
+                <label for="id">ID&nbsp;&nbsp;&nbsp;</label>
+                <input id="enterID" type="text" placeholder="아이디" style="border: none; border-bottom: 1px solid #000; background-color: transparent;" >
+                <label for="pw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PW&nbsp;&nbsp;</label>
+                <input id="enterPW" type="password" placeholder="비밀번호" style="border: none; border-bottom: 1px solid #000; background-color: transparent;"">
+            </p>
+            
+            <script>
+                function changeBackground(input) {
+                    input.style.backgroundColor = "#d8b98b"; // 흰색으로 배경 색 변경
+                }
+
+                function resetBackground(input) {
+                    input.style.backgroundColor = "transparent"; // 원래대로 배경 색 변경
+                }
+            </script>
+
+
+        </div>
+
+        <p style="text-align: center;">
+            <input id="login" type="button" onclick="location.href = 'video_image'" value="로그인" style="width: 200pt; height: 30pt; font-size: 18px; background-color: transparent; border: none; color: #2C6BB2; font-weight: bold; margin-bottom: 10pt;" >
+        </p>
+
+        <p style="text-align: center;">
+            <input type="button" style="width: 200pt; height: 30pt; font-size: 18px; background-color: transparent; border: none; color: #2C6BB2; font-weight: bold; margin-bottom: 200pt;" value="회원가입" name="register" onclick="location.href = 'register'">
+        </p>
+
+    </form>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+        import { getDatabase, ref, get, set, child, update, remove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLB-6e2YFYxowo0GZiRkDzeOmkboZX0jk",
+            authDomain: "senior-8710b.firebaseapp.com",
+            databaseURL: "https://senior-8710b-default-rtdb.firebaseio.com",
+            projectId: "senior-8710b",
+            storageBucket: "senior-8710b.appspot.com",
+            messagingSenderId: "728076093409",
+            appId: "1:728076093409:web:fad5b0e4b7151209fe74a0",
+            measurementId: "G-GY7VCJWGDP"
+        };
+
+        // Initialize Firebase
+
+        const app = initializeApp(firebaseConfig);
+        //const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+
+        var id = document.querySelector("#enterID");
+        var pw = document.querySelector("#enterPW");
+
+        //var findBtn = document.querySelector("#find");
+
+        //function FindData() {
+        //    const dbref = ref(db);
+//
+//            get(child(dbref, "Users/" + id.value))
+  //          .then((snapshot)=>{
+   //             if(snapshot.exists()){
+ //                   // snapshot.val().PW;
+ //                   // video_image.html로 이동
+ ////                   window.location.href = "video_image.html";
+ //               } else {
+ //                   alert("No data found");
+ //               }
+//            })
+ //           .catch((error)=>{
+ //               alert(error)
+ //           })
+        
+ //       }
+        
+  //      findBtn.addEventListener('click', FindData);
+
+        
+
+    </script>
+    <script>
+        // 마우스를 화면 아래쪽에 대면 화면을 제일 아래로 내리는 JavaScript 코드
+        window.addEventListener("mousemove", function(event) {
+            var scrollHeight = document.documentElement.scrollHeight;
+            var windowHeight = window.innerHeight;
+            var scrollPosition = window.pageYOffset;
+            var mousePosY = event.clientY;
+            
+            if (mousePosY > windowHeight - 70) {
+                window.scrollTo({
+                    top: scrollHeight,
+                    behavior: 'smooth' 
+                });
+            } else if (mousePosY < 70) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 스크롤 속도
+                });
+            }
+        });
+    </script>
+</body>
+</html>

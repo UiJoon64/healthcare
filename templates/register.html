@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #eee1cd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 9px;
+        }
+
+        #centered-text {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="enterDetails">
+        <h1 style="text-align:center;">회원가입</h1>
+
+        <h4 style="text-align:center;">Name</h4>
+        <input id="enterNM" type="text" placeholder="이름" style="width: 150pt; font-size: 15px; background-color: #e8cfa9;"
+            oninput="nameError.style.display = 'none'">
+        <div id="nameError" class="error-message" style="text-align: center; display: none;">이름은 2글자 이상이어야 합니다.</div>
+
+        <h4 style="text-align:center;">ID</h4>
+        <input id="enterID" type="text" placeholder="아이디" style="width: 150pt; font-size: 15px; background-color: #e8cfa9;"
+            oninput="idError.style.display = 'none'">
+        <div id="idError" class="error-message" style="text-align: center; display: none;">아이디는 4글자 이상이어야 합니다.</div>
+
+        <h4 style="text-align:center;">PW</h4>
+        <input id="enterPW" type="password" placeholder="비밀번호" style="width: 150pt; font-size: 15px; background-color: #e8cfa9;"
+            oninput="pwError.style.display = 'none'">
+        <div id="pwError" class="error-message" style="text-align: center; display: none;">비밀번호는 8글자 이상이어야 합니다.</div>
+        <br>
+        <input id="enterPWcheck" type="password" placeholder="비밀번호 확인" style="width: 150pt; margin-top: 10pt; font-size: 15px; background-color: #e8cfa9;"
+            oninput="pwMismatchError.style.display = 'none';pwCheckInput.style.color = 'black'">
+        <div id="pwMismatchError" class="error-message" style="text-align: center; display: none;">비밀번호가 일치하지 않습니다.</div>
+
+        <h4 style="text-align:center;">Phone Number</h4>
+        <input id="enterPH" type="text" placeholder="연락처" style="width: 150pt; font-size: 15px; background-color: #e8cfa9;"
+            oninput="phError.style.display = 'none'" onkeyup="formatPhoneNumber(this)" maxlength="13">
+        <div id="phError" class="error-message" style="text-align: center; display: none;">올바른 전화번호 형식이 아닙니다.</div>
+        <br><br>
+
+        <button id="insert" style="width: 150pt; font-size: 18px; font-weight: bold; margin-top: 20pt; cursor: pointer;">회원가입</button>
+        <br>
+        <br>
+        <button id="login" style="width: 150pt; font-size: 18px; font-weight: bold; margin-top: 2pt; cursor: pointer;" onclick="window.location.href='/'">로그인</button>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getDatabase, ref, get, set, child, update, remove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLB-6e2YFYxowo0GZiRkDzeOmkboZX0jk",
+            authDomain: "senior-8710b.firebaseapp.com",
+            databaseURL: "https://senior-8710b-default-rtdb.firebaseio.com",
+            projectId: "senior-8710b",
+            storageBucket: "senior-8710b.appspot.com",
+            messagingSenderId: "728076093409",
+            appId: "1:728076093409:web:fad5b0e4b7151209fe74a0",
+            measurementId: "G-GY7VCJWGDP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase(app);
+
+        var id = document.querySelector("#enterID");
+        var pw = document.querySelector("#enterPW");
+        var name = document.querySelector("#enterNM");
+        var phone = document.querySelector("#enterPH");
+
+        var insertBtn = document.querySelector("#insert");
+        var pwInput = document.querySelector("#enterPW");
+        var pwCheckInput = document.querySelector("#enterPWcheck");
+        var pwMismatchError = document.querySelector("#pwMismatchError");
+        var nameError = document.querySelector("#nameError");
+        var idError = document.querySelector("#idError");
+        var pwError = document.querySelector("#pwError");
+        var phError = document.querySelector("#phError");
+
+        function InsertData() {
+            if (name.value.length < 2) {
+                nameError.style.display = 'block';
+            } else {
+                nameError.style.display = 'none';
+            }
+            if (id.value.length < 4) {
+                idError.style.display = 'block';
+            } else {
+                idError.style.display = 'none';
+            }
+            if (pw.value.length < 8) {
+                pwError.style.display = 'block';
+            } else {
+                pwError.style.display = 'none';
+            }
+
+            var phonePattern = /^010-\d{4}-\d{4}$/;
+            if (!phone.value.match(phonePattern)) {
+                phError.style.display = 'block';
+            } else {
+                phError.style.display = 'none';
+            }
+
+            if (pwInput.value === pwCheckInput.value && name.value.length >= 2 && id.value.length >= 4 && pw.value.length >= 8 && phone.value.match(phonePattern)) {
+                pwMismatchError.style.display = 'none';
+                set(ref(db, "Users/" + id.value), {
+                    NM: name.value,
+                    PW: pw.value,
+                    PH: phone.value
+                })
+                    .then(() => {
+                        alert("회원가입 성공");
+                    })
+                    .catch((error) => {
+                        alert("회원가입 실패");
+                    });
+            } else {
+                pwCheckInput.style.color = "red";
+                pwMismatchError.style.display = 'block';
+            }
+        }
+
+        insertBtn.addEventListener('click', InsertData);
+
+        function formatPhoneNumber(input) {
+            var num = input.value.replace(/-/g, '');
+            if (num.length > 3 && num.length < 7) {
+                input.value = num.substr(0, 3) + '-' + num.substr(3);
+            } else if (num.length >= 7) {
+                input.value = num.substr(0, 3) + '-' + num.substr(3, 4) + '-' + num.substr(7);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
