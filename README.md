@@ -230,11 +230,13 @@ AI-Hub에서 "불이야!", " 도와주세요.."와 같은 위급상황 발생에
 
 파이썬 기반의 웹 프레임워크인 Flask를 사용해 웹 서비스를 만들었다.
 
-Flask는 확장성이 뛰어나고 필요한 기능들을 추가할 수 있어 채택하게 되었다.
+로그인 페이지의 경우 firebase 서버와 연동하여 회원 정보를 관리하였다. 
 
 
 🤩 프로젝트 결과 및 실행
 ========================
-![Uploading image.png…]()
 
+![Untitled (4)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/b09cc619-3b40-43cd-a13e-2e9ce4ec31d6)
+
+![Untitled (5)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/cffdceff-91e8-4302-8d25-4c81537f88da)
 
