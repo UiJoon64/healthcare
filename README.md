@@ -238,9 +238,9 @@ AI-Hub에서 "불이야!", " 도와주세요.."와 같은 위급상황 발생에
 
 실행 파일을 생성할 때 docker를 사용하지않고 pyinstaller 라이브러리를 사용하였다.
 
-'''
+```
 pyinstaller --onefile --add-data="templates;templates" --add-data="static;static" --add-data="models;models" --add-data="utils;utils" --add-data="latest_sequential_model.h5;." --add-data="yolov7-w6-pose.pt;." --hidden-import=seaborn --hidden-import=scipy.signal --hidden-import=matplotlib --hidden-import=matplotlib.pyplot --hidden-import=matplotlib.backends.backend_agg --hidden-import=yaml webcam_with_another_checking_skeleton_makingexe.py
-'''
+```
 
 ![Untitled (4)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/b09cc619-3b40-43cd-a13e-2e9ce4ec31d6)
 
