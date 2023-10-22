@@ -197,9 +197,9 @@ pose-estimate.py는 디렉토리에 포함된 전체 영상에 대해 해당 과
 
 yolov7+mediapipe 에서 yolov7 pose estimation 모델로 변환해서 관절각도변화 추이로 정확도를 비교해보니 상당 부분 개선이 이루어진 것을 확인할 수 있었다.
 
-![download (4)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/4b04b0ab-e369-4e3b-b33b-1d9c628c17f1)
+![Untitled (3)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/40766e78-aa65-4588-9991-8d6693f6ebbd)
 
-![joint_angle_changes](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/cd8f19be-74c9-4818-8b43-c6f2a3a160b6)
+[좌 : yolov7+mediapipe, 우 : yolov7-pose-estimation]
 
 ✨ 음성데이터
 =====================
