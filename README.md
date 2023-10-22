@@ -45,12 +45,14 @@ CUDA 11.3
 <전체 구성 요약>
 ![image](https://github.com/UiJoon64/seniorMotionDetection/assets/144432006/fc330b03-a08c-49c2-8c5f-b00b9718ae53)
 
+⭐ 이미지데이터
+=====================
 <details>
-<summary>⭐ 이미지데이터 (정확도 이슈로 인해 잠정 제외)</summary>
+<summary>정확도 이슈로 인해 잠정 제외</summary>
 <div markdown="1">
 
 
-=====================
+
 AI-Hub에서 총 80가지의 일상생활 라벨링 데이터를 담은
 
 **< 일상생활 이미지 데이터 >** 를 가져와, 가정에서 흔히 발생할 수 있는 **17가지의 상황만을 선별**하였다.
