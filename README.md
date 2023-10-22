@@ -169,11 +169,21 @@ pose-estimate.py는 디렉토리에 포함된 전체 영상에 대해 해당 과
 
 이를 방지하기 위해 구간별로 표준편차를 계산하여 4가지 관절 모두 변화가 크게 없는 구간은 타겟이 아니라고 판정, 제외하여 하이라이트만 추출한다.
 
+![Untitled (1)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/bae67576-7ab4-4634-8c83-2bfdcd708423)
+
 위와 같이 구간별로 표준 편차를 추출한 다음,
 
 표준 편차가 임계값 이하인 부분에 대해 필터링하면 다음과 같이 행의 개수가 줄어든, 하이라이트만 추출해낼 수 있다.
 
+![download (2)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/adec54c5-b7ff-4cbd-903c-87284acf3428)
+
+![download (3)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/d33b67df-d209-485a-b06d-833fc296ebad)
+
+위와 같이 하이라이트만 추출된 것을 확인이 가능하다.
+
 또, 최종 모니터링 프로그램은 1초에 10회씩 동작을 추정할 것이므로 30fps로 촬영된 훈련 데이터도 average pooling을 사용하여 10fps로 맞춰준다.
+
+![Untitled (2)](https://github.com/UiJoon64/seniorMotionDetection/assets/117344692/bb7a9616-279a-4fff-b95a-22d18dc47228)
 
 이렇게 전처리가 끝난 데이터 사용하여 원핫 인코딩을 사용한 타겟 데이터와 함께 훈련 데이터셋으로 만든다.
 
