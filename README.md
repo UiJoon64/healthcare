@@ -45,6 +45,9 @@ CUDA 11.3
 <전체 구성 요약>
 ![image](https://github.com/UiJoon64/seniorMotionDetection/assets/144432006/fc330b03-a08c-49c2-8c5f-b00b9718ae53)
 
+<details>
+<summary>토글 접기/펼치기</summary>
+<div markdown="1">
 
 ⭐ 이미지데이터
 =====================
@@ -71,8 +74,9 @@ AI-Hub에서 총 80가지의 일상생활 라벨링 데이터를 담은
 
 ![image](https://github.com/UiJoon64/seniorMotionDetection/assets/144432006/029870ad-8f2c-4897-99e3-c0d5e8e26a85)
 
+</div>
+</details>
 
-예를 들어, 말할까 ???????????????????
 
 
 
