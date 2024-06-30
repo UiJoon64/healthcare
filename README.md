@@ -189,7 +189,7 @@ pose-estimate.py는 디렉토리에 포함된 전체 영상에 대해 해당 과
 
 이렇게 전처리가 끝난 데이터 사용하여 원핫 인코딩을 사용한 타겟 데이터와 함께 훈련 데이터셋으로 만든다.
 
-길이가 5인 시계열 데이터이기에 lstm층을 사용한 모델을 사용하는데, 정확도 향상을 위해서 dropout, batch normalization층을 활용해보았고
+길이가 5인 시계열 데이터이기에 lstm층을 사용한 모델을 사용하는데, 정확도 향상을 위해서 dropout, batch normalization층을 활용해보았고,
 
 실험적으로나 이론적으로나 batch normalization층 만을 사용하는 것이 성능이 좋아서 BN층만 사용하였다(Batch Normalized Recurrent Neural Networks,2015).
 
